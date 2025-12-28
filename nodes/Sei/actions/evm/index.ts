@@ -1,0 +1,151 @@
+/*
+ * Copyright (c) Velocity BPA, LLC
+ * Licensed under the Business Source License 1.1
+ * Commercial use requires a separate commercial license.
+ * See LICENSE file for details.
+ */
+
+import { INodeProperties } from 'n8n-workflow';
+
+export const evmOperations: INodeProperties[] = [
+  {
+    displayName: 'Operation',
+    name: 'operation',
+    type: 'options',
+    noDataExpression: true,
+    displayOptions: { show: { resource: ['evm'] } },
+    options: [
+      { name: 'Get EVM Balance', value: 'getEvmBalance', description: 'Get ETH/SEI balance (EVM)', action: 'Get EVM balance' },
+      { name: 'Send EVM Transaction', value: 'sendEvmTransaction', description: 'Send native tokens via EVM', action: 'Send EVM transaction' },
+      { name: 'Get Transaction Receipt', value: 'getTransactionReceipt', description: 'Get EVM transaction receipt', action: 'Get transaction receipt' },
+      { name: 'Call Contract', value: 'callContract', description: 'Read contract state (view)', action: 'Call contract' },
+      { name: 'Execute Contract', value: 'executeContract', description: 'Execute contract method (write)', action: 'Execute contract' },
+      { name: 'Deploy Contract', value: 'deployContract', description: 'Deploy EVM contract', action: 'Deploy contract' },
+      { name: 'Get Gas Price', value: 'getGasPrice', description: 'Get current gas price', action: 'Get gas price' },
+      { name: 'Estimate Gas', value: 'estimateGas', description: 'Estimate gas for transaction', action: 'Estimate gas' },
+      { name: 'Get Block', value: 'getBlock', description: 'Get EVM block', action: 'Get block' },
+      { name: 'Get Logs', value: 'getLogs', description: 'Get contract event logs', action: 'Get logs' },
+      { name: 'Get Nonce', value: 'getNonce', description: 'Get account nonce', action: 'Get nonce' },
+      { name: 'Sign Message', value: 'signMessage', description: 'Sign a message', action: 'Sign message' },
+      { name: 'Get ERC20 Balance', value: 'getErc20Balance', description: 'Get ERC20 token balance', action: 'Get ERC20 balance' },
+      { name: 'Transfer ERC20', value: 'transferErc20', description: 'Transfer ERC20 tokens', action: 'Transfer ERC20' },
+    ],
+    default: 'getEvmBalance',
+  },
+];
+
+export const evmFields: INodeProperties[] = [
+  {
+    displayName: 'Address',
+    name: 'address',
+    type: 'string',
+    required: true,
+    default: '',
+    placeholder: '0x...',
+    displayOptions: { show: { resource: ['evm'], operation: ['getEvmBalance', 'getNonce'] } },
+  },
+  {
+    displayName: 'To Address',
+    name: 'toAddress',
+    type: 'string',
+    required: true,
+    default: '',
+    placeholder: '0x...',
+    displayOptions: { show: { resource: ['evm'], operation: ['sendEvmTransaction', 'estimateGas'] } },
+  },
+  {
+    displayName: 'Amount (SEI)',
+    name: 'amount',
+    type: 'string',
+    required: true,
+    default: '',
+    placeholder: '1.0',
+    displayOptions: { show: { resource: ['evm'], operation: ['sendEvmTransaction'] } },
+  },
+  {
+    displayName: 'Transaction Hash',
+    name: 'txHash',
+    type: 'string',
+    required: true,
+    default: '',
+    placeholder: '0x...',
+    displayOptions: { show: { resource: ['evm'], operation: ['getTransactionReceipt'] } },
+  },
+  {
+    displayName: 'Contract Address',
+    name: 'contractAddress',
+    type: 'string',
+    required: true,
+    default: '',
+    placeholder: '0x...',
+    displayOptions: { show: { resource: ['evm'], operation: ['callContract', 'executeContract', 'getLogs', 'getErc20Balance', 'transferErc20'] } },
+  },
+  {
+    displayName: 'ABI (JSON Array)',
+    name: 'abi',
+    type: 'json',
+    required: true,
+    default: '[]',
+    displayOptions: { show: { resource: ['evm'], operation: ['callContract', 'executeContract', 'deployContract'] } },
+  },
+  {
+    displayName: 'Method Name',
+    name: 'methodName',
+    type: 'string',
+    required: true,
+    default: '',
+    placeholder: 'balanceOf',
+    displayOptions: { show: { resource: ['evm'], operation: ['callContract', 'executeContract'] } },
+  },
+  {
+    displayName: 'Method Arguments (JSON Array)',
+    name: 'methodArgs',
+    type: 'json',
+    default: '[]',
+    placeholder: '["0x...", 100]',
+    displayOptions: { show: { resource: ['evm'], operation: ['callContract', 'executeContract', 'deployContract'] } },
+  },
+  {
+    displayName: 'Bytecode',
+    name: 'bytecode',
+    type: 'string',
+    required: true,
+    default: '',
+    placeholder: '0x...',
+    displayOptions: { show: { resource: ['evm'], operation: ['deployContract'] } },
+  },
+  {
+    displayName: 'Block Number',
+    name: 'blockNumber',
+    type: 'number',
+    default: 0,
+    description: 'Block number (0 for latest)',
+    displayOptions: { show: { resource: ['evm'], operation: ['getBlock'] } },
+  },
+  {
+    displayName: 'Message',
+    name: 'message',
+    type: 'string',
+    required: true,
+    default: '',
+    displayOptions: { show: { resource: ['evm'], operation: ['signMessage'] } },
+  },
+  {
+    displayName: 'Token Amount',
+    name: 'tokenAmount',
+    type: 'string',
+    required: true,
+    default: '',
+    placeholder: '100.0',
+    displayOptions: { show: { resource: ['evm'], operation: ['transferErc20'] } },
+  },
+  {
+    displayName: 'Recipient',
+    name: 'recipient',
+    type: 'string',
+    required: true,
+    default: '',
+    placeholder: '0x...',
+    displayOptions: { show: { resource: ['evm'], operation: ['transferErc20'] } },
+  },
+];

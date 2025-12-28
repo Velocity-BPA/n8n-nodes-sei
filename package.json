@@ -1,0 +1,111 @@
+{
+  "name": "n8n-nodes-sei",
+  "version": "1.0.0",
+  "description": "A comprehensive n8n community node for Sei blockchain providing 24 resources and 200+ operations for account management, native DEX trading, staking, governance, EVM compatibility, CosmWasm contracts, IBC transfers, and more.",
+  "license": "BUSL-1.1",
+  "author": {
+    "name": "Velocity BPA",
+    "email": "licensing@velobpa.com",
+    "url": "https://velobpa.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Velocity-BPA/n8n-nodes-sei.git"
+  },
+  "homepage": "https://github.com/Velocity-BPA/n8n-nodes-sei#readme",
+  "bugs": {
+    "url": "https://github.com/Velocity-BPA/n8n-nodes-sei/issues"
+  },
+  "keywords": [
+    "n8n",
+    "n8n-community-node-package",
+    "sei",
+    "sei-network",
+    "blockchain",
+    "cosmos",
+    "cosmwasm",
+    "evm",
+    "dex",
+    "defi",
+    "staking",
+    "governance",
+    "ibc",
+    "oracle",
+    "token-factory",
+    "web3",
+    "cryptocurrency",
+    "automation"
+  ],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "LICENSE",
+    "COMMERCIAL_LICENSE.md",
+    "LICENSING_FAQ.md",
+    "README.md"
+  ],
+  "n8n": {
+    "n8nNodesApiVersion": 1,
+    "credentials": [
+      "dist/credentials/SeiNetwork.credentials.js",
+      "dist/credentials/SeiApi.credentials.js",
+      "dist/credentials/SeiEvm.credentials.js"
+    ],
+    "nodes": [
+      "dist/nodes/Sei/Sei.node.js",
+      "dist/nodes/Sei/SeiTrigger.node.js"
+    ]
+  },
+  "scripts": {
+    "build": "tsc && npm run copy:icons",
+    "copy:icons": "copyfiles -u 1 \"nodes/**/*.svg\" \"nodes/**/*.png\" dist/",
+    "dev": "tsc --watch",
+    "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint . --ext .ts --fix",
+    "format": "prettier --write \"**/*.ts\"",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "clean": "rimraf dist",
+    "prepublishOnly": "npm run clean && npm run build"
+  },
+  "dependencies": {
+    "@cosmjs/amino": "^0.32.4",
+    "@cosmjs/cosmwasm-stargate": "^0.32.4",
+    "@cosmjs/crypto": "^0.32.4",
+    "@cosmjs/encoding": "^0.32.4",
+    "@cosmjs/math": "^0.32.4",
+    "@cosmjs/proto-signing": "^0.32.4",
+    "@cosmjs/stargate": "^0.32.4",
+    "@cosmjs/tendermint-rpc": "^0.32.4",
+    "@sei-js/core": "^4.0.0",
+    "@sei-js/cosmjs": "^4.0.0",
+    "@sei-js/evm": "^4.0.0",
+    "axios": "^1.7.7",
+    "bech32": "^2.0.0",
+    "ethers": "^6.13.4"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.13",
+    "@types/node": "^22.7.5",
+    "@typescript-eslint/eslint-plugin": "^8.8.0",
+    "@typescript-eslint/parser": "^8.8.0",
+    "copyfiles": "^2.4.1",
+    "eslint": "^8.57.1",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-n8n-nodes-base": "^1.16.2",
+    "jest": "^29.7.0",
+    "n8n-workflow": "^1.62.0",
+    "prettier": "^3.3.3",
+    "rimraf": "^6.0.1",
+    "ts-jest": "^29.2.5",
+    "typescript": "^5.6.2"
+  },
+  "peerDependencies": {
+    "n8n-workflow": ">=1.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
